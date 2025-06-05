@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/IMBoBx/pokedex-cli/pkg"
@@ -16,10 +17,15 @@ import (
 var pokemonCmd = &cobra.Command{
 	Use:   "pokemon [name/number]",
 	Short: "Get details for any pokemon",
-	Long: `This command fetches the details for any Pokemon using its name or its National Pokedex number. Example:
-		pokedex-cli pokemon infernape
-		pokedex-cli pokemon`,
+	Long: `This command fetches the details for any Pokemon using its name or its National 
+Pokedex number. For example:
+pokedex-cli pokemon infernape
+pokedex-cli pokemon`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) > 1 {
+			fmt.Println("Too many args. Use quotes if name has a space.")
+			os.Exit(1)
+		}
 		pokemonFunc(args[0])
 	},
 }
@@ -29,10 +35,15 @@ func init() {
 }
 
 func pokemonFunc(id string) {
-	println := fmt.Println
+	id = strings.ReplaceAll(strings.TrimSpace(id), " ", "-")
 
-	var p structs.Pokemon
-	var ps structs.PokemonSpecies
+	println := fmt.Println
+	printf := fmt.Printf
+
+	var (
+		p  structs.Pokemon
+		ps structs.PokemonSpecies
+	)
 
 	pkg.FetchApi(pkg.Base+"pokemon/"+id, &p)
 	pkg.FetchApi(pkg.Base+"pokemon-species/"+id, &ps)
@@ -41,6 +52,7 @@ func pokemonFunc(id string) {
 		name        string = pkg.ToTitle(p.Name)
 		description string
 		types       []string
+		evolvesFrom string = pkg.ToTitle(ps.EvolvesFromSpecies.Name)
 	)
 
 	for _, t := range p.Types {
@@ -55,6 +67,30 @@ func pokemonFunc(id string) {
 
 	println("Name:", name)
 	println(description)
-	println("Types:", strings.Join(types, ", "))
+
+	println("\nTypes:", strings.Join(types, ", "))
+	if evolvesFrom != "" {
+		println("Evolves from:", evolvesFrom)
+	}
+	println("\nStats:")
+
+	for _, stat := range p.Stats {
+		printf("└── %-17s - %d\n", pkg.ToTitle(stat.Stat.Name), stat.BaseStat)
+	}
 
 }
+
+// func getEvoFromTo(url, name string) (string, []string) {
+// 	var (
+// 		evoChain structs.EvolutionChain
+// 		evoFrom  string
+// 		evoTo    []string
+// 	)
+
+// 	pkg.FetchApi(url, &evoChain)
+
+// 	for link 
+
+
+
+// }
