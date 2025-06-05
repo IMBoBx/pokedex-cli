@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/IMBoBx/pokedex-cli/pkg"
 	"github.com/IMBoBx/pokedex-cli/structs"
 	"github.com/spf13/cobra"
 )
@@ -33,17 +34,17 @@ func pokemonFunc(id string) {
 	var p structs.Pokemon
 	var ps structs.PokemonSpecies
 
-	fetchApi(base+"/pokemon/"+id, &p)
-	fetchApi(base+"/pokemon-species/"+id, &ps)
+	pkg.FetchApi(pkg.Base+"pokemon/"+id, &p)
+	pkg.FetchApi(pkg.Base+"pokemon-species/"+id, &ps)
 
 	var (
-		name        string = toTitle(p.Name)
+		name        string = pkg.ToTitle(p.Name)
 		description string
 		types       []string
 	)
 
 	for _, t := range p.Types {
-		types = append(types, toTitle(t.Type.Name))
+		types = append(types, pkg.ToTitle(t.Type.Name))
 	}
 
 	for _, d := range ps.FlavorTextEntries {

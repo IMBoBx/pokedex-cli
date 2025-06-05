@@ -4,40 +4,10 @@ Copyright © 2025 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"encoding/json"
-	"fmt"
-	"io"
-	"net/http"
 	"os"
-	"strings"
 
 	"github.com/spf13/cobra"
 )
-
-var base string = "https://pokeapi.co/api/v2"
-
-func toTitle(s string) string {
-	return strings.ToUpper(s[0:1]) + s[1:]
-} 
-
-func fetchApi(url string, object any) {
-	res, err := http.Get(url)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-
-	if res.StatusCode == 404 {
-		fmt.Println("404: Data not found. Invalid command.")
-		res.Body.Close()
-		os.Exit(1)
-	}
-	defer res.Body.Close()
-
-	data, _ := io.ReadAll(res.Body)
-
-	json.Unmarshal(data, object)
-}
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -74,5 +44,3 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-
-
