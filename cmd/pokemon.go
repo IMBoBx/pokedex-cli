@@ -75,7 +75,7 @@ func pokemonFunc(id string) {
 	println("\nStats:")
 
 	for _, stat := range p.Stats {
-		printf("└── %-17s - %d\n", pkg.ToTitle(stat.Stat.Name), stat.BaseStat)
+		printf("  └── %-15s - %d\n", pkg.ToTitle(stat.Stat.Name), stat.BaseStat)
 	}
 
 }

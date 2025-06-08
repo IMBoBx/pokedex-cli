@@ -11,17 +11,25 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "pokedex-cli",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Use:   "pokecli",
+	Short: "A CLI-based Pokedex tool, written in Go",
+	Long: `pokecli is a command-line Pokédex tool that lets you fetch and display information about any Pokémon directly from your terminal.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+Features:
+  - Get detailed stats, types, and descriptions for any Pokémon by name or National Dex number
+  - View Effort Values (EVs) and base stats
+  - Display level-up movesets for Pokémon in the latest or selected games
+  - Supports multiple move-learning methods and game versions
+  - Clean, human-readable output
+
+Examples:
+  pokecli pokemon pikachu
+  pokecli pokemon 25
+  pokecli ev garchomp
+  pokecli moves charizard -g sword-shield -m level-up
+
+Powered by PokeAPI.
+`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
