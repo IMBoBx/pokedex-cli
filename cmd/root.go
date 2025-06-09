@@ -11,9 +11,9 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "pokecli",
+	Use:   "pokedex-cli",
 	Short: "A CLI-based Pokedex tool, written in Go",
-	Long: `pokecli is a command-line Pokédex tool that lets you fetch and display information about any Pokémon directly from your terminal.
+	Long: `pokedex-cli is a command-line Pokédex tool that lets you fetch and display information about any Pokémon directly from your terminal.
 
 Features:
   - Get detailed stats, types, and descriptions for any Pokémon by name or National Dex number
@@ -23,10 +23,10 @@ Features:
   - Clean, human-readable output
 
 Examples:
-  pokecli pokemon pikachu
-  pokecli pokemon 25
-  pokecli ev garchomp
-  pokecli moves charizard -g sword-shield -m level-up
+   pokedex-cli pokemon pikachu
+   pokedex-cli pokemon 25
+   pokedex-cli ev garchomp
+   pokedex-cli moves charizard -g sword-shield -m level-up
 
 Powered by PokeAPI.
 `,
